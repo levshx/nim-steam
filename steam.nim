@@ -161,7 +161,7 @@ type
     marketable*: string
 
 proc getAssetClassInfo*(client: SteamClient, gameID: int,
-    classid: int): AssetClassInfo =
+    classid: int64): AssetClassInfo =
   let url = "https://api.steampowered.com/ISteamEconomy/GetAssetClassInfo/v0001/?key="&(
       client.steamWebAPIKey)&"&appid="&($gameID)&"&class_count=1&classid0="&($classid)
   let jsonObject = parseJson(newHttpClient().getContent(url))
@@ -197,3 +197,63 @@ proc getOwnedGames*(client: SteamClient, steamID64: int64): OwnedGames =
     for jsonGame in jsonGames:     
       result.games.add(to(jsonGame, Game))
   return result
+
+######################################
+# ISteamEconomy (GAME PRICES)
+# Method (GetAssetPrices) v0001
+# https://api.steampowered.com/ISteamEconomy/GetAssetPrices/v1/?key=sss&appid=730
+######################################
+type
+  GameAssetPrice = object  
+    name*: string
+    date*: string
+    classid*: string
+    prices*: Prices
+
+  Prices = object   
+    USD*: int
+    GBP*: int
+    EUR*: int
+    RUB*: int
+    BRL*: int
+    JPY*: int
+    NOK*: int
+    IDR*: int
+    MYR*: int
+    PHP*: int
+    SGD*: int
+    THB*: int
+    VND*: int
+    KRW*: int
+    TRY*: int
+    UAH*: int
+    MXN*: int
+    CAD*: int
+    AUD*: int
+    NZD*: int
+    PLN*: int
+    CHF*: int
+    AED*: int
+    CLP*: int
+    CNY*: int
+    COP*: int
+    PEN*: int
+    SAR*: int
+    TWD*: int
+    HKD*: int
+    ZAR*: int
+    INR*: int
+    ARS*: int
+    CRC*: int
+    ILS*: int
+    KWD*: int
+    QAR*: int
+    UYU*: int
+    KZT*: int
+
+proc getGameAssetPrices*(client: SteamClient, gameID: int): seq[GameAssetPrice] =
+  let url = "https://api.steampowered.com/ISteamEconomy/GetAssetPrices/v1/?key="&(client.steamWebAPIKey)&"&appid="&($gameID)
+  let jsonObject = parseJson(newHttpClient().getContent(url))
+  let jsonResult = jsonObject["result"] # More Information
+  let jsonAssets = jsonResult["assets"]
+  return to(jsonAssets, seq[GameAssetPrice])
