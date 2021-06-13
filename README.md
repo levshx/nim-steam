@@ -11,3 +11,4 @@ import steam
 var clientSteam = newSteamClient("XXXXXXBBBBBBBBBBKKKKKKKKKIIIII") 
 
 ```
+Example methods in test.nim
