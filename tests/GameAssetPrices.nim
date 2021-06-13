@@ -1,7 +1,7 @@
 import ../steam, strutils
 
 # input you Key Steam Web API
-var clientSteam = newSteamClient("B78831E0C8B61A80B2342FDE1B109FFB") 
+var clientSteam = newSteamClient(readFile("STEAMKEY.txt")) 
 
 let testItems = clientSteam.getGameAssetPrices(730)
 for item in testItems:
