@@ -16,7 +16,7 @@ proc escapeLink(s: string): string =
 
 type
   SteamClient = object
-    steamWebAPIKey: string
+    steamWebAPIKey*: string
     steam_login: string
     steam_password: string
 
@@ -25,18 +25,18 @@ type
 proc newSteamClient*(keyWebAPI: string): SteamClient =
   result.steamWebAPIKey = keyWebAPI
 
-proc `keyAPI=`*(s: var SteamClient, value: string) {.inline.} =
-  s.steamWebAPIKey = value
+# proc `keyAPI=`*(s: var SteamClient, value: string) {.inline.} =
+#   s.steamWebAPIKey = value
 
-proc keyAPI*(s: SteamClient): string {.inline.} =
-  s.steamWebAPIKey
+# proc keyAPI*(s: SteamClient): string {.inline.} =
+#   s.steamWebAPIKey
 
 
 
 type
   ServerInfo = object
-    servertime: int
-    servertimestring: string
+    servertime*: int
+    servertimestring*: string
 
 proc getServerInfo*(client: SteamClient): ServerInfo =
   let url = "https://api.steampowered.com/ISteamwebAPIUtil/GetServerInfo/v1/"
@@ -51,10 +51,10 @@ proc getServerInfo*(client: SteamClient): ServerInfo =
 ######################################
 type
   MinItem = object
-    success: bool
-    lowest_price: string
-    volume: string
-    median_price: string
+    success*: bool
+    lowest_price*: string
+    volume*: string
+    median_price*: string
 
 
 proc getMinItem*(client: SteamClient, appid: int, vallet: int,
@@ -72,20 +72,20 @@ proc getMinItem*(client: SteamClient, appid: int, vallet: int,
 ######################################
 type
   TradeAsset = object
-    appid: int
-    contextid: string
-    assetid: string
-    amount: string
-    classid: string
-    instanceid: string
-    new_assetid: string
-    new_contextid: string
+    appid*: int
+    contextid*: string
+    assetid*: string
+    amount*: string
+    classid*: string
+    instanceid*: string
+    new_assetid*: string
+    new_contextid*: string
 
   Trade = object
-    tradeid: string
-    steamid_other: string
-    time_init: int
-    status: int
+    tradeid*: string
+    steamid_other*: string
+    time_init*: int
+    status*: int
     assets_received*: seq[TradeAsset]
     assets_given*: seq[TradeAsset]
 
@@ -123,22 +123,29 @@ proc getAssetMarketIconURL*(client: SteamClient, icon_code: string): string =
 
 type
   InventoryAsset = object
-    appid: int
-    contextid: string
-    assetid: string
-    amount: string
-    classid: string
-    instanceid: string
+    appid*: int
+    classid*: string
+    instanceid*: string
+    currency*: int
+    icon_url*: string
+    tradable*: int
+    name*: string
+    name_color*: string
+    market_name*: string
+    market_hash_name*:string
+    commodity*: int
+    market_tradable_restriction*: int
+    marketable*: int
 
 proc getProfileInventory*(client: SteamClient, steamID64: int64, gameID: int,
     valueWTF: int): seq[InventoryAsset] =
   let url = "https://steamcommunity.com/inventory/"&($steamID64)&"/"&(
       $gameID)&"/"&($valueWTF)
   let jsonObject = parseJson(newHttpClient().getContent(url))
-  let jsonDescriptions = jsonObject["descriptions"]
-  let jsonAssets = jsonObject["assets"]
+  let jsonDescriptions = jsonObject["descriptions"] # More Information
+  #let jsonAssets = jsonObject["assets"]            
   doAssert jsonDescriptions.kind == JArray
-  for jsonAsset in jsonAssets:
+  for jsonAsset in jsonDescriptions:
     result.add(to(jsonAsset, InventoryAsset))
   return result
 
