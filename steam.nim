@@ -169,3 +169,31 @@ proc getAssetClassInfo*(client: SteamClient, gameID: int,
   let jsonAsset = jsonResult[$classid] 
   return to(jsonAsset, AssetClassInfo)
 
+
+######################################
+# IPlayerService
+# Method (GetOwnedGames) v0001
+#http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key=kkk&steamid=76561198082780098
+######################################
+type
+  OwnedGames = object
+    game_count*: int
+    games*: seq[Game]
+
+  Game = object
+    appid*: int
+    playtime_forever*: int
+    playtime_windows_forever*: int
+    playtime_mac_forever*: int
+    playtime_linux_forever*: int
+    
+proc getOwnedGames*(client: SteamClient, steamID64: int64): OwnedGames =
+  let url = "http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key="&(client.steamWebAPIKey)&"&steamid="&($steamID64)
+  let jsonObject = parseJson(newHttpClient().getContent(url))
+  let jsonResponse = jsonObject["response"]
+  result.game_count = to(jsonResponse["game_count"], int)
+  if (result.game_count > 0):
+    let jsonGames = jsonResponse["games"]
+    for jsonGame in jsonGames:     
+      result.games.add(to(jsonGame, Game))
+  return result
