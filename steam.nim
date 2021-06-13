@@ -1,7 +1,5 @@
 import json, httpclient, strutils
 
-
-
 # Decode specific chars to % in URL
 proc escapeLink(s: string): string =
   result = newStringOfCap(s.len + s.len shr 2)
@@ -17,22 +15,18 @@ proc escapeLink(s: string): string =
 type
   SteamClient = object
     steamWebAPIKey*: string
-    steam_login: string
-    steam_password: string
-
-
 
 proc newSteamClient*(keyWebAPI: string): SteamClient =
   result.steamWebAPIKey = keyWebAPI
 
-# proc `keyAPI=`*(s: var SteamClient, value: string) {.inline.} =
-#   s.steamWebAPIKey = value
-
-# proc keyAPI*(s: SteamClient): string {.inline.} =
-#   s.steamWebAPIKey
 
 
 
+######################################
+# Server Info
+# ISteamwebAPIUtil v1
+# https://api.steampowered.com/ISteamwebAPIUtil/GetServerInfo/v1/
+######################################
 type
   ServerInfo = object
     servertime*: int
@@ -92,7 +86,8 @@ type
 
 
 proc tradeHistory*(client: SteamClient, max_trades: int): seq[Trade] =
-  let url = "https://api.steampowered.com/IEconService/GetTradeHistory/v1/?key="&(client.steamWebAPIKey)&"&max_trades="&($max_trades)
+  let url = "https://api.steampowered.com/IEconService/GetTradeHistory/v1/?key="&(
+      client.steamWebAPIKey)&"&max_trades="&($max_trades)
   let jsonObject = parseJson(newHttpClient().getContent(url))
   let jsonResponse = jsonObject["response"]
   let jsonTrades = jsonResponse["trades"]
@@ -109,7 +104,6 @@ proc tradeHistory*(client: SteamClient, max_trades: int): seq[Trade] =
 # Get Icon URL
 # http://cdn.steamcommunity.com/economy/image/ +IMAGE CODE
 ######################################
-
 proc getAssetMarketIconURL*(client: SteamClient, icon_code: string): string =
   let url = "http://cdn.steamcommunity.com/economy/image/"&icon_code
   return url
@@ -120,7 +114,6 @@ proc getAssetMarketIconURL*(client: SteamClient, icon_code: string): string =
 # CARD
 # https://steamcommunity.com/inventory/76561198082780051/730/2
 ######################################
-
 type
   InventoryAsset = object
     appid*: int
@@ -132,7 +125,7 @@ type
     name*: string
     name_color*: string
     market_name*: string
-    market_hash_name*:string
+    market_hash_name*: string
     commodity*: int
     market_tradable_restriction*: int
     marketable*: int
@@ -143,16 +136,10 @@ proc getProfileInventory*(client: SteamClient, steamID64: int64, gameID: int,
       $gameID)&"/"&($valueWTF)
   let jsonObject = parseJson(newHttpClient().getContent(url))
   let jsonDescriptions = jsonObject["descriptions"] # More Information
-  #let jsonAssets = jsonObject["assets"]            
   doAssert jsonDescriptions.kind == JArray
   for jsonAsset in jsonDescriptions:
     result.add(to(jsonAsset, InventoryAsset))
   return result
-
-
-
-
-
 
 
 ######################################
@@ -160,5 +147,25 @@ proc getProfileInventory*(client: SteamClient, steamID64: int64, gameID: int,
 # Method (GetAssetClassInfo) v0001
 # https://api.steampowered.com/ISteamEconomy/GetAssetClassInfo/v0001/?key=XXX&appid=730&class_count=1&classid0=3106076656
 ######################################
+type
+  AssetClassInfo = object
+    classid*: string
+    icon_url*: string
+    tradable*: string
+    name*: string
+    name_color*: string
+    market_name*: string
+    market_hash_name*: string
+    commodity*: string
+    market_tradable_restriction*: string
+    marketable*: string
 
-# TODO 
+proc getAssetClassInfo*(client: SteamClient, gameID: int,
+    classid: int): AssetClassInfo =
+  let url = "https://api.steampowered.com/ISteamEconomy/GetAssetClassInfo/v0001/?key="&(
+      client.steamWebAPIKey)&"&appid="&($gameID)&"&class_count=1&classid0="&($classid)
+  let jsonObject = parseJson(newHttpClient().getContent(url))
+  let jsonResult = jsonObject["result"] # More Information
+  let jsonAsset = jsonResult[$classid] 
+  return to(jsonAsset, AssetClassInfo)
+
