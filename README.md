@@ -2,6 +2,9 @@
 
 compile with param: -d:ssl
 
+### See more
+[Steam nim docs](https://levshx.github.io/nim-doc/steam/steam.html)
+
 how to use
 ```nim
 import steam 
@@ -11,4 +14,4 @@ import steam
 var clientSteam = newSteamClient("XXXXXXBBBBBBBBBBKKKKKKKKKIIIII") 
 
 ```
-Example methods in test.nim
+Example methods in [Steam nim docs](https://levshx.github.io/nim-doc/steam/steam.html)
