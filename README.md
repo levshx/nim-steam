@@ -4,8 +4,6 @@
 
 # nim-steam 
 
-[![nim-steam](https://raw.githubusercontent.com/levshx/nim-steam/main/resources/icons.png)](https://github.com/levshx/nim-steam)
-
 compile with param: -d:ssl
 
 ### See more
