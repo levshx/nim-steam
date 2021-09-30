@@ -6,6 +6,14 @@
 
 compile with param: -d:ssl
 
+Name                | Description
+--------------------|----------------------
+steam.nim           | Full library
+steam/client.nim    | Steam client
+steam/webapi.nim    | Steam Web API
+steam/features.nim  | Additional data parsers
+
+
 ### See more
 [Steam nim docs](https://levshx.github.io/nim-doc/steam/steam.html)
 
