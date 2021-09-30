@@ -1,8 +1,6 @@
-# nim-steam [![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://github.com/yglukhov/nimble-tag)
+[![nimble](https://raw.githubusercontent.com/levshx/nim-steam/main/resources/nim-steam.png)](https://github.com/levshx/nim-steam)
 
-simple steam web api lib
-
-
+# nim-steam 
 
 compile with param: -d:ssl
 
