@@ -1,4 +1,4 @@
-# nim-steam [![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.svg)](https://github.com/yglukhov/nimble-tag)
+# nim-steam [![nimble](https://raw.githubusercontent.com/yglukhov/nimble-tag/master/nimble.png)](https://github.com/yglukhov/nimble-tag)
 
 simple steam web api lib
 
