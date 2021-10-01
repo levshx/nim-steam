@@ -4,41 +4,10 @@
 
 # nim-steam 
 
-compile with param: -d:ssl
+TODO
 
-Name                | Description
---------------------|----------------------
-steam.nim           | Full library
-steam/client.nim    | Steam client
-steam/webapi.nim    | Steam Web API
-steam/features.nim  | Additional data parsers
+## Authors
 
+- [@levshx](https://www.github.com/levshx)
 
-### See more
-[Steam nim docs](https://levshx.github.io/nim-doc/steam/steam.html)
-
-```nim
-import steam 
-
- # input you Key Steam Web API https://steamcommunity.com/dev/apikey
- # use var for reset options
-var clientSteam = newSteamClient("XXXXXXBBBBBBBBBBKKKKKKKKKIIIII") 
-
-```
-
-Procs
-```nim
-proc newSteamClient(keyWebAPI: string): SteamClient {...}
-
-proc getServerInfo(client: SteamClient): ServerInfo {...}
-proc getMinItem(client: SteamClient; appid: int; vallet: int;
-                market_hash_name: string): MinItem {...}
-proc tradeHistory(client: SteamClient; max_trades: int): seq[Trade] {...}
-proc getAssetMarketIconURL(client: SteamClient; icon_code: string): string {...}
-proc getProfileInventory(client: SteamClient; steamID64: int64; gameID: int;
-                         valueWTF: int): seq[InventoryAsset] {...}
-proc getAssetClassInfo(client: SteamClient; gameID: int; classid: int64): AssetClassInfo {...}
-proc getOwnedGames(client: SteamClient; steamID64: int64): OwnedGames {...}
-proc getGameAssetPrices(client: SteamClient; gameID: int): seq[GameAssetPrice] {...}
-```
-Example methods in [Steam nim docs](https://levshx.github.io/nim-doc/steam/steam.html)
+  
