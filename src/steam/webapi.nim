@@ -13,7 +13,7 @@ proc escapeLink(s: string): string =
 
 
 type
-  SteamWebAPI = object  ## Client Steam
+  SteamWebAPI* = object  ## Client Steam
     steamSteamWebAPIKey*: string
 
 
