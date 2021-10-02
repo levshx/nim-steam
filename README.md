@@ -9,5 +9,5 @@ TODO
 
 # Contributors
 
-- [@levshx](https://github.com/levshx)
-- [@Dev1Root](https://github.com/Dev1Root)
+- [levshx](https://github.com/levshx)
+- [Dev1Root](https://github.com/Dev1Root)
