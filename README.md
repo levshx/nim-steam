@@ -6,8 +6,8 @@
 
 TODO
 
-## Authors
 
-- [@levshx](https://www.github.com/levshx)
+# Contributors
 
-  
+- [@levshx](https://github.com/levshx)
+- [@Dev1Root](https://github.com/Dev1Root)
