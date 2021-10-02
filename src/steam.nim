@@ -21,7 +21,9 @@
 ##   let keySteam = "XXXXYYYYZZZZDDDDAAAA1234"
 ##
 ##   # Create Steam session
-##   var clientSteam = newSteamClient(keySteam) 
+##   var clientSteam = newSteamWebAPI(keySteam) 
+## 
+## Kek
 ##
 ## Test 
 ## --------------
@@ -30,7 +32,7 @@
 ##
 
 import steam/webapi  
+import steam/client  
 
-export newSteamWebAPI
-export getGameAssetPrices
-export getAssetClassInfo
+export webapi
+export client
