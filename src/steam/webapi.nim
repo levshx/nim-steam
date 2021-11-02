@@ -30,7 +30,7 @@ proc getSupportedAPIList*(client: SteamWebAPI): JsonNode =
   return client.apilist
 
 proc getServerInfo*(client: SteamWebAPI): JsonNode =
-  return parseJson(newHttpClient().getContent("https://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v1/?key="&client.steamWebAPIKey))
+  return parseJson(newHttpClient().getContent("https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"))
 
 
 #
