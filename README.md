@@ -10,4 +10,3 @@ TODO
 # Contributors
 
 - [levshx](https://github.com/levshx)
-- [Dev1lroot](https://github.com/Dev1lroot)
