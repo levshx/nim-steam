@@ -32,7 +32,7 @@
 ##
 
 import steam/webapi  
-import steam/client  
+#import steam/client  
 
 export webapi
-export client
+#export client

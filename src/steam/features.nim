@@ -1,15 +1,5 @@
-import json, httpclient, strutils
+import json, httpclient, strutils, uri
 
-# Decode specific chars to % in URL
-proc escapeLink(s: string): string =
-  result = newStringOfCap(s.len + s.len shr 2)
-  for c in items(s):
-    case c
-    of 'a'..'z', '_', 'A'..'Z', '0'..'9', '.', '#', ',', '/':
-      result.add c
-    else:
-      add(result, "%")
-      add(result, toHex(ord(c), 2))
 
 
 type
@@ -25,7 +15,7 @@ proc getMinItem*(appid: int, vallet: int,
   ## Процедура получения минимальной информации стоимости предмета
   ## на торговой площадке Steam
   let url = "https://steamcommunity.com/market/priceoverview/?appid="&intToStr(
-      appid)&"&currency="&intToStr(vallet)&"&market_hash_name="&escapeLink(market_hash_name)
+      appid)&"&currency="&intToStr(vallet)&"&market_hash_name="&encodeUrl(market_hash_name)
   let jsonObject = parseJson(newHttpClient().getContent(url))
   return to(jsonObject, MinItem)
 

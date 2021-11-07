@@ -1,15 +1,4 @@
-import json, httpclient, strutils, options
-
-# Decode specific chars to % in URL
-proc escapeLink(s: string): string =
-  result = newStringOfCap(s.len + s.len shr 2)
-  for c in items(s):
-    case c
-    of 'a'..'z', '_', 'A'..'Z', '0'..'9', '.', '#', ',', '/':
-      result.add c
-    else:
-      add(result, "%")
-      add(result, toHex(ord(c), 2))
+import json, httpclient, uri, strutils, options
 
 type
   SteamWebAPI = object  ## Client Steam class
@@ -22,7 +11,7 @@ proc newSteamWebAPI*(steamWebAPIKey: string): SteamWebAPI =
   result.apilist = parseJson(newHttpClient().getContent("https://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v1/?key="&steamWebAPIKey))
 
 proc newSteamWebAPI*(): SteamWebAPI =
-  ## Create Steam client
+  ## Create Steam client without key
   result.steamWebAPIKey = ""
   result.apilist = parseJson(newHttpClient().getContent("https://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v1/"))
 
@@ -55,10 +44,10 @@ proc call*(client: SteamWebAPI, interfaceName: string, methodName: string, versi
   if (client.steamWebAPIKey!=""):
     params.add(newParam("key",client.steamWebAPIKey))
   if params.len>0:
-    url = url & "?" & escapeLink(params[0].name) & "=" & escapeLink(params[0].value)
+    url = url & "?" & encodeUrl(params[0].name) & "=" & encodeUrl(params[0].value)
     params.del(0)
   for param in params:
-    url = url & "&" & escapeLink(param.name) & "=" & escapeLink(param.value)
+    url = url & "&" & encodeUrl(param.name) & "=" & encodeUrl(param.value)
   return parseJson(newHttpClient().getContent(url))
 
 
