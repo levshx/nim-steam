@@ -2,7 +2,7 @@
 
 [![NOT COMPLETE](https://img.shields.io/static/v1?label=Attention&message=Project%20in%20development&color=red)](https://github.com/levshx/nim-steam)
 
-# nim-steam 
+# <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
 [WIKI](https://github.com/levshx/nim-steam/wiki)
 
 TODO
