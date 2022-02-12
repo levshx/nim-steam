@@ -1,4 +1,4 @@
-import httpclient, base64, openssl, json
+import std/[httpclient, json], strutils, json, client/rsaPassword, std/[times, os]
 
 type
   SteamClient* = object 
@@ -18,39 +18,22 @@ type
     token_gid: string
 
 proc getRSAKey(client: SteamClient,  username: string): RSAKey =
-  ## Before authorization, you need to take the RSA key
+  ## Before authorization, you need to take the RSA PKCS15 Padding key & modulus exponent
   ## to encode the transmitted password for security
-  let url = "https://store.steampowered.com/login/getrsakey/?username="&($username)
-  let jsonObject = parseJson(client.httpclient.getContent(url))
-  return to(jsonObject, RSAKey)
+  let jsonObject = parseJson(client.httpclient.getContent("https://store.steampowered.com/login/getrsakey/?username="&($username)))
+  result = to(jsonObject, RSAKey)
+  return result 
 
-proc passwordEncode(publickey_mod: string, publickey_exp: string, password: string):string =
-  var rsa_pub: PRSA
-  var public_key: string = """-----BEGIN PUBLIC KEY-----
-  MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALFj4XCZ2Cvb4vbPl0KJvkeFP8Lqit7q
-  E1eA8US3ev/ziPlED5juC9IIBl69AOgxDHm1SjhceAxwG86Y8DkN7asCAwEAAQ==
-  -----END PUBLIC KEY-----"""
-
-
-  var bio_pub = BIO_new_mem_buf(addr publickey[0], -1)
-  rsa_pub = PEM_read_bio_RSA_PUBKEY(bio_pub, rsa_pub.addr, nil, nil)
-
-  if rsa_pub.isNil:
-      echo "ERROR: Could not load PUBLIC KEY!  PEM_read_bio_RSA_PUBKEY FAILED"
-      echo ERR_error_string(ERR_get_error(), nil)
-
-  var plainText = "I love you"
-  var cipherText = newString(RSA_size(rsa_pub))
-  doAssert plainText.len < RSA_size(rsa_pub)-11
-  let sz = RSA_public_encrypt(plainText.len.cint,plainText[0].addr,cipherText[0].addr,rsa_pub,RSA_PKCS1_PADDING)
-  if sz != RSA_size(rsa_pub):
-    echo "ERROR: RSA_public_encrypt FAILED!"
-    echo ERR_error_string(ERR_get_error(),nil)
-  return cipherText
-
-# https://stackoverflow.com/questions/26822354/trying-to-pass-steam-auth-stumped-with-rsa-ecnryption-js-to-python
+proc doLogin(client: SteamClient, username, password, rsatimestamp, secret: string): string =
+  let url = "https://steamcommunity.com/login/dologin/"
+  client.httpclient.headers = newHttpHeaders({ "Content-Type": "application/json" })
+  let body = "donotcache=" & ($now()) & "&password=" & password & "&username=" & username & "&twofactorcode=" & secret & "&emailauth=&loginfriendlyname=&captchagid=-1&captcha_text=&emailsteamid=&rsatimestamp=" & rsatimestamp & "&remember_login=false"
+  let response = client.httpclient.postContent(url, body = $body)
+  return response 
 
 proc auth*(client: SteamClient,  username: string, password: string, secret: string): bool =
-  ## TODO
+  var data_RSA = client.getRSAKey(username) 
+  var encrypted_password = encryptPassword(data_RSA.publickey_mod, data_RSA.publickey_exp, password)
+  echo client.doLogin(username, encrypted_password, data_RSA.timestamp, secret)
   return false
 
