@@ -1,6 +1,5 @@
-import ../src/steam, strutils, json, bigints, std/math, std/algorithm
+import ../src/steam
 
 var steamClient = newSteamClient()
 
-var auth_result = steamClient.auth("username", "password", "secret")
-
+var auth_result = steamClient.auth("login", "pass", "secret")

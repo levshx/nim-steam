@@ -1,4 +1,4 @@
-import std/base64, strutils, json, bigints, std/random, std/algorithm
+import std/base64, strutils, bigints, std/random, std/algorithm
 
 converter toSeqUint8(s: string): seq[uint8] = cast[seq[uint8]](s)
 
@@ -56,12 +56,11 @@ proc pkcs1pad2(data:string, key_Size:int): BigInt =
     i = i - 1
     keySize = keySize - 1
             
-  # Padding, I think
   buffer[keySize-1] = 0
   keySize = keySize - 1
+
   while (keySize > 2):           
     buffer[keySize-1] = (uint8)rand(1..255)
-    #buffer[keySize-1] = 5
     keySize = keySize - 1
               
   buffer[keySize-1] = 2
@@ -69,22 +68,18 @@ proc pkcs1pad2(data:string, key_Size:int): BigInt =
   buffer[keySize-1] = 0
   keySize = keySize - 1
 
-  #buffer.reverse()
-
   var bufferStr = ""
   for a in 0..(255):
     bufferStr.add(toHex(buffer[a]))
 
   var bufferBigInt = initBigInt(bufferStr, 16)
-
   return bufferBigInt
 
 proc encryptPassword*(publickey_mod: string, publickey_exp: string, password: string):string =
 
   var key_size = parseHexStr(publickey_mod).len
   doAssert keySize == (2048 + 7) shr 3
-
-  # Create BigInt`s
+  
   let publickey_mod_bigint = initBigInt(publickey_mod, base = 16)
   let publickey_exp_bigint = initBigInt(publickey_exp, base = 16)
 

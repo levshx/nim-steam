@@ -1,12 +1,14 @@
-import std/[httpclient, json], strutils, json, client/rsaPassword, std/[times, os]
+import std/[httpclient, json], strutils, json, client/rsaPassword, std/[times, os], uri
 
 type
   SteamClient* = object 
-    httpclient: HttpClient
+    httpclient*: HttpClient
+    cookies*: HttpHeaders
 
 proc newSteamClient*(): SteamClient =
   ## Create Steam client
   result.httpclient = newHttpClient()
+
 
 
 type
@@ -26,14 +28,13 @@ proc getRSAKey(client: SteamClient,  username: string): RSAKey =
 
 proc doLogin(client: SteamClient, username, password, rsatimestamp, secret: string): string =
   let url = "https://steamcommunity.com/login/dologin/"
-  client.httpclient.headers = newHttpHeaders({ "Content-Type": "application/json" })
-  let body = "donotcache=" & ($now()) & "&password=" & password & "&username=" & username & "&twofactorcode=" & secret & "&emailauth=&loginfriendlyname=&captchagid=-1&captcha_text=&emailsteamid=&rsatimestamp=" & rsatimestamp & "&remember_login=false"
-  let response = client.httpclient.postContent(url, body = $body)
-  return response 
+  var content = "donotcache=" & $(toUnix(toTime(now()))+150) & "000" & "&password=" & encodeUrl(password) & "&username=" & encodeUrl(username) & "&twofactorcode=" & secret & "&emailauth=&loginfriendlyname=&captchagid=-1&captcha_text=&emailsteamid=&rsatimestamp=" & rsatimestamp & "&remember_login=true"
+  client.httpclient.headers = newHttpHeaders({ "Content-Type": "application/x-www-form-urlencoded"})
+  let response = client.httpclient.request(url, HttpPost, body = content, client.httpclient.headers)
+  return "\nBODY: " & response.body & "\n\nRESPONSE HEADERS: " & $response.headers & "\n\nCLIENT HEADERS: " & $client.httpclient.headers
 
-proc auth*(client: SteamClient,  username: string, password: string, secret: string): bool =
+proc auth*(client: SteamClient,  username: string, password: string, secret = ""): bool =
   var data_RSA = client.getRSAKey(username) 
   var encrypted_password = encryptPassword(data_RSA.publickey_mod, data_RSA.publickey_exp, password)
   echo client.doLogin(username, encrypted_password, data_RSA.timestamp, secret)
   return false
-
