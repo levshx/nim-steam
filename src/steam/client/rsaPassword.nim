@@ -79,7 +79,6 @@ proc encryptPassword*(publickey_mod: string, publickey_exp: string, password: st
 
   var key_size = parseHexStr(publickey_mod).len
   doAssert keySize == (2048 + 7) shr 3
-  
   let publickey_mod_bigint = initBigInt(publickey_mod, base = 16)
   let publickey_exp_bigint = initBigInt(publickey_exp, base = 16)
 
