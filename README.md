@@ -5,7 +5,15 @@
 # <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
 [WIKI](https://github.com/levshx/nim-steam/wiki)
 
-TODO
+
+| Name          | Meaning         |
+|:------------- |:---------------:|
+| steam/webapi  | allows you to interact with the steam Web API |
+| steam/client  | TODO  |
+| steam/features| all kinds of data parsers from the Steam Network |
+| steam/guard   | TODO  |
+| steam         | all of the above |
+
 
 
 # Contributors
