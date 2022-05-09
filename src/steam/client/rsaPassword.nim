@@ -1,4 +1,7 @@
-import std/base64, strutils, bigints, std/random, std/algorithm
+import std/base64, strutils, bigints, std/random
+
+# https://stackoverflow.com/questions/26822354/trying-to-pass-steam-auth-stumped-with-rsa-ecnryption-js-to-python
+# https://github.com/igeligel/skadisteam.login/blob/master/src/skadisteam.login/Factories/EncryptPasswordFactory.cs
 
 converter toSeqUint8(s: string): seq[uint8] = cast[seq[uint8]](s)
 
@@ -72,5 +75,3 @@ proc encryptPassword*(publickey_mod: string, publickey_exp: string, password: st
 
   return encryptedPassword
 
-# https://stackoverflow.com/questions/26822354/trying-to-pass-steam-auth-stumped-with-rsa-ecnryption-js-to-python
-# https://github.com/igeligel/skadisteam.login/blob/master/src/skadisteam.login/Factories/EncryptPasswordFactory.cs
