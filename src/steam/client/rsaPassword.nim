@@ -2,26 +2,6 @@ import std/base64, strutils, bigints, std/random, std/algorithm
 
 converter toSeqUint8(s: string): seq[uint8] = cast[seq[uint8]](s)
 
-func seqUint8ToSeqUint32(seq_Uint8: seq[uint8]): seq[uint32]  =
-  var seqUint8 = seq_Uint8
-  
-  # Add null bits for parity
-  while (seqUint8.len mod 4 != 0):
-    seqUint8.insert((uint8)0,0)
-  doAssert seqUint8.len mod 4 == 0
-  
-  for a in 0..((seqUint8.len div 4)-1):
-      var a1:uint8 = seqUint8[a*4]
-      var a2:uint8 = seqUint8[a*4+1]
-      var a3:uint8 = seqUint8[a*4+2]
-      var a4:uint8 = seqUint8[a*4+3]
-      result.add((cast[uint32](a4) shl 0) or
-      (cast[uint32](a3) shl 8) or
-      (cast[uint32](a2) shl 16) or
-      (cast[uint32](a1) shl 24))
-  result.reverse()
-  return result
-
 
 func bigInt2Hex(big_int: BigInt):string = 
   var bigInt = big_int  
