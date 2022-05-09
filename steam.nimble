@@ -8,7 +8,7 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 1.6.4"
+requires "nim >= 1.6.0"
 requires "bigints == 1.0.0"
 
 when defined(nimdistros):
@@ -18,4 +18,6 @@ when defined(nimdistros):
   else:
     foreignDep "openssl"
 
-
+task test, "Run the Nimble tester!":
+  withDir "tests":
+    exec "nim c -r tester"

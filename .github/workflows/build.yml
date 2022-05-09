@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Build
 
 # Controls when the workflow will run
 on:
@@ -25,6 +25,6 @@ jobs:
      - uses: actions/checkout@v3
      - uses: jiro4989/setup-nim-action@v1
        with:
-         nim-version: '1.6.0' # default is 'stable'
-     - run: nimble build -Y
+         nim-version: '1.6.4' # default is 'stable'
+     - run: nimble install
      - run: nimble test -Y
