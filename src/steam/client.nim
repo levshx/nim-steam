@@ -43,7 +43,7 @@ type
     transfer_urls: Option[seq[string]]
     transfer_parameters: Option[TransferParams]
     captcha_needed: Option[bool]
-    captcha_gid: Option[string]
+    captcha_gid: Option[int]
   TransferParams = object 
     steamid: Option[string]
     token_secure: Option[string]
