@@ -9,3 +9,15 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 1.0.0"
+
+
+when defined(nimdistros):
+  import distros
+  if detectOs(Ubuntu):
+    foreignDep "libssl-dev"
+  else:
+    foreignDep "openssl"
+
+task test, "Run the Nimble tester!":
+  withDir "tests":
+    exec "nim c -r tester"
