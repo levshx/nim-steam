@@ -26,5 +26,5 @@ jobs:
      - uses: jiro4989/setup-nim-action@v1
        with:
          nim-version: '1.6.4' # default is 'stable'
-     - run: nimble install
-     - run: nimble test -Y
+     - run: nimble install -y
+     - run: nimble test -y
