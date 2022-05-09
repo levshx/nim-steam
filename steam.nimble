@@ -2,14 +2,14 @@
 
 version       = "0.0.1"
 author        = "levshx"
-description   = "Steam WEB API"
+description   = "Steam library"
 license       = "GNU GENERAL PUBLIC LICENSE"
 srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 1.0.0"
-
+requires "nim >= 1.6.4"
+requires "bigints == 1.0.0"
 
 when defined(nimdistros):
   import distros
@@ -18,6 +18,4 @@ when defined(nimdistros):
   else:
     foreignDep "openssl"
 
-task test, "Run the Nimble tester!":
-  withDir "tests":
-    exec "nim c -r tester"
+
