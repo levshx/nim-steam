@@ -10,7 +10,7 @@
 ## ========
 ##
 ## Create Steam client
-## ------------
+## -------------------
 ##
 ## Use only `var`
 ##
@@ -22,14 +22,7 @@
 ##
 ##   # Create Steam session
 ##   var clientSteam = newSteamWebAPI(keySteam) 
-## 
-## Kek
-##
-## Test 
-## --------------
-##
-## Test text
-##
+
 
 import steam/webapi  
 import steam/client  
