@@ -1,4 +1,5 @@
-import httpclient, strutils, json, std/options, client/rsaPassword, times, uri
+import httpclient, strutils, json, std/options, times, uri
+include client/rsaPassword
 
 type
   SteamClient* = object 

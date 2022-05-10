@@ -1,10 +1,9 @@
 # Package
 
-version       = "0.0.1"
+version       = "0.0.2"
 author        = "levshx"
 description   = "Steam library"
 license       = "GNU GENERAL PUBLIC LICENSE"
-srcDir        = "src"
 
 # Dependencies
 
@@ -23,5 +22,5 @@ task test, "Run the Nimble tester!":
     exec "nim c -r tester"
 
 task docs, "Generate docs!":
-  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:a090000 --outdir:docs src/steam.nim"
+  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:a090000 --outdir:docs steam.nim"
   exec "nim buildIndex -o:docs/index.html docs"
