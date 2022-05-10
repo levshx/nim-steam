@@ -6,7 +6,22 @@
 
 # <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
 
+It can be installed through nimble with:
 
+```
+nimble install https://github.com/levshx/nim-steam
+```
+
+DocGen Tools:
+
+```
+cd nim-steam
+nimble docs
+```
+Docs on GitHub Pages:
+https://levshx.github.io/nim-steam/
+
+# Modules
 
 | Name          | Meaning         |
 |:------------- |:---------------:|
