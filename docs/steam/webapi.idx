@@ -1,0 +1,7 @@
+newSteamWebAPI	steam/webapi.html#newSteamWebAPI,string	webapi: newSteamWebAPI(steamWebAPIKey: string): SteamWebAPI	
+newSteamWebAPI	steam/webapi.html#newSteamWebAPI	webapi: newSteamWebAPI(): SteamWebAPI	
+getSupportedAPIList	steam/webapi.html#getSupportedAPIList,SteamWebAPI	webapi: getSupportedAPIList(client: SteamWebAPI): JsonNode	
+getServerInfo	steam/webapi.html#getServerInfo,SteamWebAPI	webapi: getServerInfo(client: SteamWebAPI): JsonNode	
+newParam	steam/webapi.html#newParam,string,string	webapi: newParam(name: string; value: string): Param	
+call	steam/webapi.html#call,SteamWebAPI,string,string,int,seq[Param]	webapi: call(client: SteamWebAPI; interfaceName: string; methodName: string;\n     version: int; params: seq[Param]): JsonNode	
+call	steam/webapi.html#call,SteamWebAPI,string,string,int	webapi: call(client: SteamWebAPI; interfaceName: string; methodName: string;\n     version: int): JsonNode	
