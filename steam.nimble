@@ -3,7 +3,7 @@
 version       = "0.0.2"
 author        = "levshx"
 description   = "Steam library"
-license       = "GNU GENERAL PUBLIC LICENSE"
+license       = "MIT License"
 
 # Dependencies
 
@@ -19,8 +19,9 @@ when defined(nimdistros):
 
 task test, "Run the Nimble tester!":
   withDir "tests":
-    exec "nim c -r tester"
+    exec "nim c -r tester unittests::*"
 
 task docs, "Generate docs!":
-  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:7d3ac4a --outdir:docs steam.nim"
-  exec "nim buildIndex -o:docs/index.html docs"
+  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html steam.nim"
+  #exec "nim rst2html --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html *.rst"
+  exec "nim buildIndex -o:docs/html/index.html docs"

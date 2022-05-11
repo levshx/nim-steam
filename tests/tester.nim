@@ -1,16 +1,28 @@
+import unittest
+
 import steam, json
 
-var steamWebAPI = newSteamWebAPI()
+suite "unittests":
+  echo "suite setup"
+  
+#   setup:
+#     echo "Run (before test)"
+  
+#   teardown:
+#     echo "Complete (after test)"
+  
+  test "webapi":
+    var steamWebAPI = newSteamWebAPI()
+    let jsonNode = steamWebAPI.call("ISteamWebAPIUtil","GetServerInfo", 1)
+    doAssert jsonNode["servertime"].kind == JInt , "servertime jsonNode is failed"
+    doAssert jsonNode["servertimestring"].kind == JString , "servertimestring jsonNode is failed"
 
-let output = steamWebAPI.call("ISteamWebAPIUtil","GetServerInfo", 1)
+  test "client auth request":
+    var steamClient = newSteamClient()
+    doAssert steamClient.auth("levshx", "WrongPassword", "WrongTwoFactorCode") == false, "what?"
+    
+  
+  echo "Suite complete"
 
-echo output
 
-var steamClient = newSteamClient()
 
-var auth_result = steamClient.auth("levshx", "passwort", "G868X")
-
-echo auth_result
-
-echo "\n"
-echo "Succefull TEST"

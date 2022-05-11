@@ -6,9 +6,20 @@ name: Build
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ devel ]
+    paths-ignore:
+      - 'docs/**'
+      - 'resources/**'
+      - 'LICENSE'
+      - '**.md'
   pull_request:
-    branches: [ main ]
+    branches: [ devel ]
+    paths-ignore:
+      - 'docs/**'
+      - 'resources/**'
+      - 'LICENSE'
+      - '**.md'
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -22,9 +33,13 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-     - uses: actions/checkout@v3
-     - uses: jiro4989/setup-nim-action@v1
-       with:
-         nim-version: '1.6.4' # default is 'stable'
-     - run: nimble install -y
-     - run: nimble test -y
+     - 
+      uses: actions/checkout@v3
+     - 
+      uses: jiro4989/setup-nim-action@v1
+        with:
+          nim-version: 'stable'
+     - 
+      run: nimble install -y
+     - 
+      run: nimble test -y

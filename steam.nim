@@ -1,8 +1,6 @@
-#
-#            Nim's Runtime Library
-#            Pavel Levshic
-#
-
+## 
+## :Author: levshx
+## :Version: 0.0.2
 ## This library allows you to use the open Web API Steam.
 ## 
 ##
@@ -26,5 +24,7 @@
 
 import steam/webapi  
 import steam/client  
+import steam/features
+export features
 export webapi
 export client

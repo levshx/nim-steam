@@ -1,4 +1,0 @@
-SteamClient	steam/client.html#SteamClient	client: SteamClient	
-newSteamClient	steam/client.html#newSteamClient	client: newSteamClient(): SteamClient	
-auth	steam/client.html#auth,SteamClient,string,string,string,string	client: auth(client: SteamClient; username: string; password: string; secret = &quot;&quot;;\n     captcha_text = &quot;&quot;): bool	
-commentProfile	steam/client.html#commentProfile,SteamClient,string,int64	client: commentProfile(client: SteamClient; message: string; user_id: int64): bool	
