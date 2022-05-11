@@ -27,7 +27,7 @@ https://levshx.github.io/nim-steam/
 |:------------- |:---------------:|
 | steam/webapi  | allows you to interact with the steam Web API |
 | steam/client  | TODO  |
-| steam/features| all kinds of data parsers from the Steam Network |
+| steam/features| TODO |
 | steam/guard   | TODO  |
 | steam         | all of the above |
 
