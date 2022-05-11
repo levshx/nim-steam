@@ -23,5 +23,12 @@ task test, "Run the Nimble tester!":
 
 task docs, "Generate docs!":
   exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html steam.nim"
-  #exec "nim rst2html --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html *.rst"
-  exec "nim buildIndex -o:docs/html/index.html docs"
+  exec "nim rst2html --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html docs/*.rst"
+  exec "nim buildIndex --project -o:docs/html/index.html docs"
+
+task webapi, "Build webapi with you API key":
+  if paramCount() == 8:
+    echo "Specify the steam WebAPI key parameter or use -keyless"
+    echo "nimble webapi <key || -keyless>"
+  elif paramStr(paramCount()) == "-keyless":
+    echo "nim c -r webapibuiler "&paramStr(paramCount())

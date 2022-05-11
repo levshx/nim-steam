@@ -20,7 +20,6 @@ suite "unittests":
   test "client auth request":
     var steamClient = newSteamClient()
     doAssert steamClient.auth("levshx", "WrongPassword", "WrongTwoFactorCode") == false, "what?"
-    
   
   echo "Suite complete"
 

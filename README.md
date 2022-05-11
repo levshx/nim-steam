@@ -15,11 +15,19 @@ nimble install https://github.com/levshx/nim-steam
 DocGen Tools:
 
 ```
+git clone https://github.com/levshx/nim-steam.git
 cd nim-steam
 nimble docs
 ```
 Docs on GitHub Pages:
 https://levshx.github.io/nim-steam/
+
+WebAPI Generator Tools:
+```
+git clone https://github.com/levshx/nim-steam.git
+cd nim-steam
+nimble webapi <key || -keyless>
+```
 
 # Modules
 
