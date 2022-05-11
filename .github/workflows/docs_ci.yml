@@ -8,14 +8,12 @@ on:
   push:
     branches: [ devel ]
     paths-ignore:
-      - 'docs/**'
       - 'resources/**'
       - 'LICENSE'
       - '**.md'
   pull_request:
     branches: [ devel ]
     paths-ignore:
-      - 'docs/**'
       - 'resources/**'
       - 'LICENSE'
       - '**.md'
