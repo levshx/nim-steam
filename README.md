@@ -2,6 +2,7 @@
 
 
 [![Build](https://github.com/levshx/nim-steam/actions/workflows/build_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/build.yml)
+[![docs_ci](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml)
 [![NOT COMPLETE](https://img.shields.io/static/v1?label=Attention&message=Project%20in%20development&color=red)](https://github.com/levshx/nim-steam)
 
 # <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
@@ -35,7 +36,7 @@ nimble webapi <key || -keyless>
 |:------------- |:---------------:|
 | steam/webapi  | allows you to interact with the steam Web API |
 | steam/client  | TODO  |
-| steam/features| all kinds of data parsers from the Steam Network |
+| steam/features| TODO |
 | steam/guard   | TODO  |
 | steam         | all of the above |
 
