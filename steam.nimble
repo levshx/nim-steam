@@ -27,8 +27,4 @@ task docs, "Generate docs!":
   exec "nim buildIndex --project -o:docs/html/index.html docs"
 
 task webapi, "Build webapi with you API key":
-  if paramCount() == 8:
-    echo "Specify the steam WebAPI key parameter or use -keyless"
-    echo "nimble webapi <key || -keyless>"
-  elif paramStr(paramCount()) == "-keyless":
-    echo "nim c -r webapibuiler "&paramStr(paramCount())
+  exec "nim c -r webapibuilder.nim -keyless"
