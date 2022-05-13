@@ -23,11 +23,11 @@ nimble docs
 Docs on GitHub Pages:
 https://levshx.github.io/nim-steam/
 
-WebAPI Generator Tools:
+WebAPI Generator Tools (see more in docs):
 ```
 git clone https://github.com/levshx/nim-steam.git
 cd nim-steam
-nimble webapi <key || -keyless>
+nimble webapi 
 ```
 
 # Modules
