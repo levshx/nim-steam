@@ -1,7 +1,7 @@
 import asyncdispatch, httpclient, uri, strutils, options
 ## :Author: levshx
 ## :Generator: https://github.com/levshx/nim-steam/
-## :Date: 2022-05-13T00:06:04Z
+## :Date: 2022-05-13T14:01:56Z
 const
   WEBAPI_BASE_URL* =
     when defined(ssl): "https://api.steampowered.com/" ## Steam API URL (SSL).
