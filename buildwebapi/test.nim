@@ -1,18 +1,15 @@
-import os, asyncdispatch, builded_webapi
+import os, httpclient, asyncdispatch, builded_webapi, options
+
+converter toOption*[T](x:T):Option[T] = some(x)
 
 var asyncClient = newAsyncSteamWebAPI()
-var a = asyncClient.ISteamWebAPIUtil.GetServerInfoV1()
 
-a.addCallback(
-  proc () =
-    echo("a callback")
-)
+var steamid: uint64 
+steamid = 730
+
+# TODO
+
+var asyncResult = asyncClient.IGCVersion_1046930.GetServerVersionV1()
 
 
-os.sleep(5000)
-
-var client = newSteamWebAPI()
-var s = client.ISteamWebAPIUtil.GetServerInfoV1()
-
-echo waitfor a 
-echo s 
+echo waitfor asyncResult 
