@@ -30,6 +30,8 @@ cd nim-steam
 nimble webapi 
 ```
 
+The project needs brains. In the near future, we need to make an implementation of steam/client. At the moment, an authorization request with RSA encryption is ready, but the cookie system is not ready.
+
 # Modules
 
 | Name          | Meaning         |
