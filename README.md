@@ -3,7 +3,7 @@
 
 [![Build](https://github.com/levshx/nim-steam/actions/workflows/build_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/build_ci.yml)
 [![Docs](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml)
-[![NOT COMPLETE](https://img.shields.io/static/v1?label=Attention&message=Project%20in%20development&color=red)](https://github.com/levshx/nim-steam)
+[![NOT COMPLETE](https://img.shields.io/static/v1?label=WARNING&message=This%20library%20is%20still%20in%20heavy%20development&color=red)](https://github.com/levshx/nim-steam)
 
 # <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
 
