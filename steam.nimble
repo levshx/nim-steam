@@ -26,5 +26,5 @@ task docs, "Generate docs!":
   exec "nim rst2html --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html docs/*.rst"
   exec "nim buildIndex --project -o:docs/html/index.html docs"
 
-task webapi, "Build webapi with you API key":
+task webapi, "Build webapi without API key":
   exec "nim c -r webapibuilder.nim -keyless"
