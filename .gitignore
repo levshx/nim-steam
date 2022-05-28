@@ -1,0 +1,8 @@
+buildwebapi/builded_webapi.nim
+# ignore all logs
+*.log
+# ignore all bins
+*.exe
+*.o
+# confidencial
+devTest/

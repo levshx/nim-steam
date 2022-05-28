@@ -35,7 +35,7 @@ nimble webapi
 | Name          | Meaning         |
 |:------------- |:---------------:|
 | steam/webapi  | allows you to interact with the steam Web API |
-| steam/client  | TODO  |
+| steam/client  | in development  |
 | steam/features| TODO |
 | steam/guard   | TODO  |
 | steam         | all of the above |

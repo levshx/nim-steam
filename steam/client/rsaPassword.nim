@@ -58,7 +58,7 @@ proc pkcs1pad2(data:string, key_Size:int): BigInt =
   var bufferBigInt = initBigInt(bufferStr, 16)
   return bufferBigInt
 
-proc encryptPassword(publickey_mod: string, publickey_exp: string, password: string):string =
+proc encryptPassword*(publickey_mod: string, publickey_exp: string, password: string):string =
 
   var key_size = parseHexStr(publickey_mod).len
   doAssert keySize == (2048 + 7) shr 3

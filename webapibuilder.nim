@@ -85,8 +85,8 @@ for steamInterface in APILIST["apilist"]["interfaces"]:
       syncMethods.add("\n  var client = newHttpClient()\n  return client.getContent(url) ")
       asyncMethods.add("\n  var client = newAsyncHttpClient()\n  return await client.getContent(url) ")
     else:
-      syncMethods.add("\n  var client = newHttpClient()\n  client.headers = newHttpHeaders({ \"Content-Type\": \"application/x-www-form-urlencoded\" }) \n  return client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
-      asyncMethods.add("\n  var client = newAsyncHttpClient()\n  client.headers = newHttpHeaders({ \"Content-Type\": \"application/x-www-form-urlencoded\" }) \n  return await client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
+      syncMethods.add("\n  var client = newHttpClient()\n  client.headers = newHttpHeaders({ \"Accept\": \"application/x-www-form-urlencoded\" }) \n  return client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
+      asyncMethods.add("\n  var client = newAsyncHttpClient()\n  client.headers = newHttpHeaders({ \"Accept\": \"application/x-www-form-urlencoded\" }) \n  return await client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
 
 syncConstruct.add("\n  return result\n")
 asyncConstruct.add("\n  return result\n")

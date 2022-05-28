@@ -7,19 +7,37 @@
 ## Overview
 ## ========
 ##
+## Create WebAPI client
+## -------------------
+##
+## Use only `var`
+##
+## .. code-block:: Nim
+##   import steam/webapi
+##
+##   # input you Key Steam Web API
+##   let keySteam = "XXXXYYYYZZZZDDDDAAAA1234"
+##
+##   # Create Steam session
+##   var webAPI = newSteamWebAPI(keySteam) 
+##
+##
 ## Create Steam client
 ## -------------------
 ##
 ## Use only `var`
 ##
 ## .. code-block:: Nim
-##   import steam
-##
-##   # input you Key Steam Web API
-##   let keySteam = "XXXXYYYYZZZZDDDDAAAA1234"
+##   import steam/client
 ##
 ##   # Create Steam session
-##   var clientSteam = newSteamWebAPI(keySteam) 
+##   var steamClient = newSteamClient()
+##   let auth = steamClient.auth("LOGIN", "PASSWORD", "2FA_KEY_OPTION", "CAPTHA_TEXT_OPTION") #bool
+##   # let load = steamClient.loadSession("session.json") #bool
+##
+##   let save = steamClient.saveSession("session.json")
+##   
+##
 
 
 import steam/webapi  
