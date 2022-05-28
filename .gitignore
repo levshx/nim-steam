@@ -6,3 +6,4 @@ buildwebapi/builded_webapi.nim
 *.o
 # confidencial
 devTest/
+buildwebapi/builded_webapi.nim
