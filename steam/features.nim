@@ -1,3 +1,9 @@
+## 
+## :Author: levshx
+## :Version: 0.0.2
+## 
+
+
 import json, httpclient, strutils, uri
 
 

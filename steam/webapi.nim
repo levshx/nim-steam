@@ -1,3 +1,26 @@
+## 
+## :Author: levshx
+## :Version: 0.0.2
+## This library allows you to use the open Web API Steam.
+## 
+##
+## Overview
+## ========
+##
+## Create WebAPI client
+## --------------------
+##
+## Use only `var`
+##
+## .. code-block:: Nim
+##   import steam/webapi
+##
+##
+##   # Create Steam session
+##   var webAPI = newSteamWebAPI(keySteam) 
+##
+##
+
 import json, httpclient, uri, strutils, options
 
 type

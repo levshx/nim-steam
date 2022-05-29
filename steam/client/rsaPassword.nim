@@ -3,8 +3,8 @@ import std/base64, strutils, bigints, std/random
 # https://stackoverflow.com/questions/26822354/trying-to-pass-steam-auth-stumped-with-rsa-ecnryption-js-to-python
 # https://github.com/igeligel/skadisteam.login/blob/master/src/skadisteam.login/Factories/EncryptPasswordFactory.cs
 
-converter toSeqUint8(s: string): seq[uint8] = cast[seq[uint8]](s)
 
+converter toSeqUint8(s: string): seq[uint8] = cast[seq[uint8]](s)
 
 func bigInt2Hex(big_int: BigInt):string = 
   var bigInt = big_int  
@@ -58,7 +58,7 @@ proc pkcs1pad2(data:string, key_Size:int): BigInt =
   var bufferBigInt = initBigInt(bufferStr, 16)
   return bufferBigInt
 
-proc encryptPassword*(publickey_mod: string, publickey_exp: string, password: string):string =
+proc encryptPassword(publickey_mod: string, publickey_exp: string, password: string):string =
 
   var key_size = parseHexStr(publickey_mod).len
   doAssert keySize == (2048 + 7) shr 3

@@ -1,6 +1,12 @@
-import os, httpclient, tables, std/cookies, strutils, json, options, times, uri
+## 
+## :Author: levshx
+## :Version: 0.0.2
+## 
 
-include client/rsaPassword, client/iFuckedNonStaticJSONTypes
+
+import httpclient, tables,  strutils, json, options, times, uri
+
+include client/rsaPassword
 
 type
   SteamClient* = object 
@@ -20,7 +26,6 @@ type
     steamRememberLogin: string
     timezoneOffset: string
 
-## Sessionid Browserid GET https://store.steampowered.com/
 
 proc newSteamClient*(): SteamClient =
   ## Create Steam client
@@ -35,7 +40,7 @@ type
     timestamp: string
     token_gid: string
 
-proc parseSetCookies*(client: var SteamClient, headers: HttpHeaders) = 
+proc parseSetCookies(client: var SteamClient, headers: HttpHeaders) = 
   if headers.hasKey("Set-Cookie"):
     for cookie in headers.table["set-cookie"]:
       if cookie.split(";")[0].find("sessionid=") != -1:
@@ -61,6 +66,7 @@ proc parseSetCookies*(client: var SteamClient, headers: HttpHeaders) =
 
 
 proc saveSession*(client: SteamClient, path: string): bool =
+  ## Performs serialization of the user's session into a json file.
   var json = %* { 
     "ga": client.session.ga,
     "gid": client.session.gid,
@@ -79,6 +85,7 @@ proc saveSession*(client: SteamClient, path: string): bool =
   return true
 
 proc loadSession*(client: var SteamClient, path: string): bool =
+  ## Performs the serialization of a json file into a Steam user session.
   try:
     client.session = to(parseJson(readFile(path)), SessionData)
   except: return false
@@ -158,6 +165,7 @@ proc doLogin(client: var SteamClient, username, password, rsatimestamp, secret, 
   return result
 
 proc auth*(client: var SteamClient,  username: string, password: string, secret = "", captcha_text = ""): bool =
+  ## Performs Steam user authorization and saves the session in the SteamClient object.
   var loginResponse: DoLoginResponse
   try:
     client.clearSession()
@@ -172,6 +180,7 @@ proc auth*(client: var SteamClient,  username: string, password: string, secret 
     return loginResponse.success
 
 proc commentProfile*(client: var SteamClient, message: string, user_id: int64): bool =
+  ## Write a comment on the Steam user profile.
   try:
     let url = "https://steamcommunity.com/comment/Profile/post/" & $user_id & "/-1/"
     let body = "comment=" & encodeUrl(message) & "&count=6&sessionid=" & client.session.sessionid & "&feature2=-1"
@@ -188,19 +197,20 @@ proc commentProfile*(client: var SteamClient, message: string, user_id: int64): 
 
 
 type
-  Notifications = object
-    trades: int #1
-    unknown2: int #2
-    unknown3: int #3
-    unknown4: int #4
-    unknown5: int #5
-    unknown6: int #6
-    unknown8: int #8
-    messages: int #9
-    unknown10: int #10
-    unknown11: int #11
+  Notifications* = object
+    trades*: int #1
+    unknown2*: int #2
+    unknown3*: int #3
+    unknown4*: int #4
+    unknown5*: int #5
+    unknown6*: int #6
+    unknown8*: int #8
+    messages*: int #9
+    unknown10*: int #10
+    unknown11*: int #11
 
 proc getNotifications*(client: var SteamClient): Notifications =
+  ## Get the number of Steam notifications (not a callback).
   try:
     let url = "https://steamcommunity.com/actions/GetNotificationCounts"
     var mainHeaders = newHttpHeaders()
