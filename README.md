@@ -45,6 +45,9 @@ The project needs brains. In the near future, we need to make an implementation 
 
 
 
+# Stargazers
+[![Stargazers repo roster for @levshx/nim-steam](https://reporoster.com/stars/dark/levshx/nim-steam)](https://github.com/levshx/nim-steam/stargazers)
+
 # Contributors
 
 - [levshx](https://github.com/levshx)
