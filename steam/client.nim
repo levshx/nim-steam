@@ -200,10 +200,10 @@ type
   Notifications* = object
     trades*: int #1
     unknown2*: int #2
-    unknown3*: int #3
+    community*: int #3
     unknown4*: int #4
     unknown5*: int #5
-    unknown6*: int #6
+    friend*: int #6
     unknown8*: int #8
     messages*: int #9
     unknown10*: int #10
@@ -220,6 +220,14 @@ proc getNotifications*(client: var SteamClient): Notifications =
     let jsonObject = parseJson(response.body)
     result.trades = jsonObject["notifications"]["1"].getInt()
     result.messages = jsonObject["notifications"]["9"].getInt()
+    result.unknown2 = jsonObject["notifications"]["2"].getInt()
+    result.community = jsonObject["notifications"]["3"].getInt()
+    result.unknown4 = jsonObject["notifications"]["4"].getInt()
+    result.unknown5 = jsonObject["notifications"]["5"].getInt()
+    result.friend = jsonObject["notifications"]["6"].getInt()
+    result.unknown8 = jsonObject["notifications"]["8"].getInt()
+    result.unknown10 = jsonObject["notifications"]["10"].getInt()
+    result.unknown11 = jsonObject["notifications"]["11"].getInt()
   except: 
     return result
   finally: 

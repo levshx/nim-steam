@@ -1,4 +1,4 @@
-import os, httpclient, strutils, json, std/options, times, uri, options
+import os, httpclient, strutils, json, std/options, times, uri
 
 var APILIST: JsonNode
 const url = "https://api.steampowered.com/ISteamWebAPIUtil/GetSupportedAPIList/v1/"
@@ -35,35 +35,36 @@ for steamInterface in APILIST["apilist"]["interfaces"]:
   interTypes.add( "\n  " & intName & " = object " & "\n    name*:string\n    methods*: seq[string]")
   # Async
   interTypes.add( "\n  Async" & intName & " =  object " & "\n    name*:string\n    methods*: seq[string]")
-  syncConstruct.add("\n  result."& intName & ".name = \"" & intName & "\"" )
-  asyncConstruct.add("\n  result."& intName & ".name = \"" & intName & "\"" )
+  syncConstruct.add("\n  result."&intName&".name = \"" & intName & "\"" )
+  asyncConstruct.add("\n  result."&intName&".name = \"" & intName & "\"" )
   for interfaceMethod in steamInterface["methods"]:    
     var methodParamsDesc = ""
     var paramsPrepose = "\n  var params: seq[Param]"
     let methodName = multiReplace($interfaceMethod["name"], ("\"",""))
     let methodVer = multiReplace($interfaceMethod["version"], ("\"",""))
     let methodHTTP = multiReplace($interfaceMethod["httpmethod"], ("\"",""))
-    var urlCode = "\n  let url = WEBAPI_BASE_URL & interfacename.name & \"/"&methodName&"/v"&methodVer&"/\""& (if interfaceMethod["parameters"].len > 0 and methodHTTP=="GET":"&prm2get(params)"else:"")
-    syncConstruct.add( "\n  result."& intName & ".methods.add(\"" & methodName & ":V"& methodVer & "\")")
-    asyncConstruct.add( "\n  result."& intName & ".methods.add(\"" & methodName & ":V"& methodVer & "\")")
-    syncMethods.add("\n\nproc `" & methodName & "V" & methodVer & "`*(interfacename: "& intName )
-    asyncMethods.add("\n\nproc `" & methodName & "V" & methodVer & "`*(interfacename: Async"& intName )    
+    var urlCode = "\n  let url = WEBAPI_BASE_URL & interfacename.name & \"/"&methodName&"/v"&methodVer&"/\"" & (if interfaceMethod["parameters"].len > 0 and methodHTTP=="GET":"&prm2get(params)"else:"")
+    syncConstruct.add( "\n  result." & intName & ".methods.add(\"" & methodName & ":V" & methodVer & "\")")
+    asyncConstruct.add( "\n  result." & intName & ".methods.add(\"" & methodName & ":V" & methodVer & "\")")
+    syncMethods.add("\n\nproc `" & methodName & "V" & methodVer & "`*(interfacename: " & intName )
+    asyncMethods.add("\n\nproc `" & methodName & "V" & methodVer & "`*(interfacename: Async" & intName )    
     if interfaceMethod["parameters"].len > 0:
       for methodParametr in interfaceMethod["parameters"]:        
         let paramName = multiReplace($methodParametr["name"], ("\"","")) 
         let paramOpt = if(methodParametr["optional"].getBool()):true else: false
         let paramType = multiReplace(multiReplace(multiReplace(multiReplace($methodParametr["type"], ("\"","")), ("{message}","Message")), ("rawbinary","Rawbinary")), ("{enum}","int"))       
-        methodParamsDesc.add("\n  ## `"&paramName&"` : "& paramType & " — "&(if paramOpt:"(Optional)" else: "(Required)")&" " & methodParametr{"description"}.getStr())
         if paramName.contains("[0]"):
           var paramSeqName = paramName
-          paramSeqName.delete(paramName.len-3,paramName.len-1)   
+          paramSeqName.delete(paramName.len-3..paramName.len-1)   
           syncMethods.add(", `" & paramSeqName & "`=none(seq[" & paramType & "])")
           asyncMethods.add(", `" & paramSeqName & "`=none(seq[" & paramType & "])")
-          paramsPrepose.add("\n  if `"& paramSeqName&"`.isSome(): \n    ## Params for seq[]")
+          paramsPrepose.add("\n  if `"&paramSeqName&"`.isSome() and `"&paramSeqName&"`.get().len>0: \n    for key, value in `"&paramSeqName&"`.get():\n      params.add(newParam(\""&paramSeqName&"[\" & $key & \"]\",$(`"&paramSeqName&"`.get()[key])))")
+          methodParamsDesc.add("\n  ## `"&paramSeqName&"` : "&"seq["&paramType&"] — "&(if paramOpt:"(Optional)" else: "(Required)")&" " & methodParametr{"description"}.getStr())
         else:  
           syncMethods.add(", `" & paramName & "`=none(" & paramType&")")
           asyncMethods.add(", `" & paramName & "`=none(" & paramType&")")
-          paramsPrepose.add("\n  if `"& paramName&"`.isSome(): \n    params.add(newParam(\""&paramName&"\", $"&paramName&"))")
+          paramsPrepose.add("\n  if `" & paramName&"`.isSome(): \n    params.add(newParam(\""&paramName&"\", $"&paramName&"))")
+          methodParamsDesc.add("\n  ## `"&paramName&"` : " & paramType & " — "&(if paramOpt:"(Optional)" else: "(Required)")&" " & methodParametr{"description"}.getStr())
     syncMethods.add("): string = ")
     asyncMethods.add("): Future[string] {.async.} = ")
     if interfaceMethod{"description"}.getStr() != "":
@@ -85,8 +86,8 @@ for steamInterface in APILIST["apilist"]["interfaces"]:
       syncMethods.add("\n  var client = newHttpClient()\n  return client.getContent(url) ")
       asyncMethods.add("\n  var client = newAsyncHttpClient()\n  return await client.getContent(url) ")
     else:
-      syncMethods.add("\n  var client = newHttpClient()\n  client.headers = newHttpHeaders({ \"Accept\": \"application/x-www-form-urlencoded\" }) \n  return client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
-      asyncMethods.add("\n  var client = newAsyncHttpClient()\n  client.headers = newHttpHeaders({ \"Accept\": \"application/x-www-form-urlencoded\" }) \n  return await client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
+      syncMethods.add("\n  var client = newHttpClient()\n  client.headers = newHttpHeaders({ \"Content-Type\": \"application/x-www-form-urlencoded\" }) \n  return client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
+      asyncMethods.add("\n  var client = newAsyncHttpClient()\n  client.headers = newHttpHeaders({ \"Content-Type\": \"application/x-www-form-urlencoded\" }) \n  return await client.postContent(url"&(if interfaceMethod["parameters"].len > 0:", body = body" else: "" )&") ")
 
 syncConstruct.add("\n  return result\n")
 asyncConstruct.add("\n  return result\n")
