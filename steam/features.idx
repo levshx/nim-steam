@@ -1,0 +1,5 @@
+MinItem	steam/features.html#MinItem	features: MinItem	
+getAssetMarketPriceOverview	steam/features.html#getAssetMarketPriceOverview,int,int,string	features: getAssetMarketPriceOverview(appid: int; vallet: int; market_hash_name: string): MinItem	
+getAssetMarketIconURL	steam/features.html#getAssetMarketIconURL,string	features: getAssetMarketIconURL(icon_code: string): string	
+InventoryAsset	steam/features.html#InventoryAsset	features: InventoryAsset	
+getProfileInventory	steam/features.html#getProfileInventory,int64,int,int	features: getProfileInventory(steamID64: int64; gameID: int; valueWTF: int): seq[\n    InventoryAsset]	

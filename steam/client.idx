@@ -1,0 +1,8 @@
+SteamClient	steam/client.html#SteamClient	client: SteamClient	
+newSteamClient	steam/client.html#newSteamClient	client: newSteamClient(): SteamClient	
+saveSession	steam/client.html#saveSession,SteamClient,string	client: saveSession(client: SteamClient; path: string): bool	
+loadSession	steam/client.html#loadSession,SteamClient,string	client: loadSession(client: var SteamClient; path: string): bool	
+auth	steam/client.html#auth,SteamClient,string,string,string,string	client: auth(client: var SteamClient; username: string; password: string; secret = &quot;&quot;;\n     captcha_text = &quot;&quot;): bool	
+commentProfile	steam/client.html#commentProfile,SteamClient,string,int64	client: commentProfile(client: var SteamClient; message: string; user_id: int64): bool	
+Notifications	steam/client.html#Notifications	client: Notifications	
+getNotifications	steam/client.html#getNotifications,SteamClient	client: getNotifications(client: var SteamClient): Notifications	
