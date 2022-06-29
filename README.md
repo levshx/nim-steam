@@ -33,17 +33,6 @@ nimble webapi
 
 The project needs brains. In the near future, we need to make an implementation of steam/client. At the moment, an authorization request with RSA encryption is ready, but the cookie system is not ready.
 
-# Modules
-
-| Name          | Meaning         |
-|:------------- |:---------------:|
-| steam/webapi  | allows you to interact with the steam Web API |
-| steam/client  | in development  |
-| steam/features| TODO |
-| steam/guard   | TODO  |
-| steam         | all of the above |
-
-
 
 # Stargazers
 [![Stargazers repo roster for @levshx/nim-steam](https://reporoster.com/stars/dark/levshx/nim-steam)](https://github.com/levshx/nim-steam/stargazers)

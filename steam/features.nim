@@ -3,10 +3,7 @@
 ## :Version: 0.0.2
 ## 
 
-
 import json, httpclient, strutils, uri
-
-
 
 type
   MinItem* = object ## Это класс минимальной информации стоимости предмета на торговой площадке Steam
@@ -15,8 +12,7 @@ type
     volume*: string
     median_price*: string
 
-
-proc getMinItem*(appid: int, vallet: int,
+proc getAssetMarketPriceOverview*(appid: int, vallet: int,
     market_hash_name: string): MinItem =
   ## Процедура получения минимальной информации стоимости предмета
   ## на торговой площадке Steam
@@ -26,21 +22,14 @@ proc getMinItem*(appid: int, vallet: int,
   return to(jsonObject, MinItem)
 
 
-#
-# Get Icon URL
-# http://cdn.steamcommunity.com/economy/image/ +IMAGE CODE
-#
+# http://steamcommunity.com/market/listings/730/AK-47%20%7C%20Redline%20%28Field-Tested%29/render?start=0&count=1&currency=1&format=json
+
 
 proc getAssetMarketIconURL*(icon_code: string): string =
   let url = "http://cdn.steamcommunity.com/economy/image/"&icon_code
   return url
 
 
-#
-# Inventory (NO API)
-# CARD
-# https://steamcommunity.com/inventory/76561198082780051/730/2
-#
 type
   InventoryAsset* = object
     appid*: int
