@@ -1,7 +1,5 @@
-import os, httpclient, asyncdispatch, builded_webapi, options
-
-converter toOption*[T](x:T):Option[T] = some(x)
+import asyncdispatch, builded_webapi, options
 
 var asyncClient = newAsyncSteamWebAPI()
 
-echo waitfor asyncClient.IGCVersion_1046930.GetServerVersionV1() 
+echo waitfor asyncClient.IPortal2Leaderboards_620.GetBucketizedDataV1() 

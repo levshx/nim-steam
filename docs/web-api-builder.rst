@@ -33,9 +33,13 @@ program that takes the parameter of the Web API key and
 generates the library code.
 
 To compile the library, run the command in the root of the 
-repository: 
+repository: ::
 
-`nim c -r webapibuilder KEY`, where the `KEY` is your 
+  git clone https://github.com/levshx/nim-steam.git
+  cd nim-steam
+  nim c -r webapibuilder <KEY || -keyless>
+
+Where the `KEY` is your 
 Web API key provided on https://steamcommunity.com/dev/apikey
 
 If you don't want to use the key, you can use the `-keyless` 
@@ -52,9 +56,9 @@ The library provides 2 types of client, synchronous and asynchronous.
 
 To create a client, run:
 
-`var client = newSteamWebAPI()`
-
-`var asyncClient = newAsyncSteamWebAPI()`
+.. code-block:: Nim
+  var client = newSteamWebAPI()
+  var asyncClient = newAsyncSteamWebAPI()
 
 This object stores the objects of the Steam WebAPI interfaces as 
 variables that you can access. 
@@ -72,4 +76,10 @@ of these methods are generated in the following format:
 
 For example:
 
-`let result = client.ISteamWebAPIUtil.GetSupportedAPIListV1()`
+.. code-block:: Nim
+  import builded_webapi.nim
+  
+  let keySteam = "XXXXYYYYZZZZDDDDAAAA1234"
+  
+  var client = newSteamWebAPI(key = keySteam) 
+  let result = client.ISteamWebAPIUtil.GetSupportedAPIListV1()`

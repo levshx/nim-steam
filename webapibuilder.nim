@@ -78,8 +78,8 @@ for steamInterface in APILIST["apilist"]["interfaces"]:
       if methodHTTP=="POST":
         syncMethods.add("\n  let body = prm2post(params)")
         asyncMethods.add("\n  let body = prm2post(params)")
-    syncMethods.add("\n  ## HTTP METHOD "&methodHTTP)
-    asyncMethods.add("\n  ## HTTP METHOD "&methodHTTP)
+    syncMethods.add("\n  # HTTP METHOD "&methodHTTP)
+    asyncMethods.add("\n  # HTTP METHOD "&methodHTTP)
     syncMethods.add(urlCode)
     asyncMethods.add(urlCode)
     if methodHTTP == "GET":
@@ -94,4 +94,8 @@ asyncConstruct.add("\n  return result\n")
 
 var compose = imports & consts & types & addSyncType & addAsyncType & interTypes & syncConstruct & asyncConstruct & syncMethods & asyncMethods
 
-writeFile("buildwebapi/builded_webapi.nim", compose)
+if  dirExists("buildwebapi"):
+  writeFile("buildwebapi/builded_webapi.nim", compose)
+else:
+  createDir("buildwebapi")
+  writeFile("buildwebapi/builded_webapi.nim", compose)
