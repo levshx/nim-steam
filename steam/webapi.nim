@@ -41,7 +41,7 @@ proc newSteamWebAPI*(): SteamWebAPI =
 proc getSupportedAPIList*(client: SteamWebAPI): JsonNode =
   return client.apilist
 
-proc getOlyaBest*(client: SteamWebAPI): JsonNode =
+proc getServerInfo*(client: SteamWebAPI): JsonNode =
   return parseJson(newHttpClient().getContent("https://api.steampowered.com/ISteamWebAPIUtil/GetServerInfo/v1/"))
 
 
