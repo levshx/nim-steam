@@ -1,5 +1,6 @@
-[![nim-steam](https://socialify.git.ci/levshx/nim-steam/image?description=1&descriptionEditable=Steam%20Network%20Library&font=Inter&forks=1&logo=https%3A%2F%2Fraw.githubusercontent.com%2Flevshx%2Fnim-steam%2Fmain%2Fresources%2Fnim-steam.png%3Fraw%3Dtrue&owner=1&pattern=Floating%20Cogs&pulls=1&stargazers=1&theme=Dark)](https://github.com/levshx/nim-steam)
-
+<p align="center">
+  <img src="https://github.com/levshx/nim-steam/blob/devel/resources/nim-steam.png?raw=true" />
+</p>
 
 [![Build](https://github.com/levshx/nim-steam/actions/workflows/build_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/build_ci.yml)
 [![Docs](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml/badge.svg)](https://github.com/levshx/nim-steam/actions/workflows/docs_ci.yml)
