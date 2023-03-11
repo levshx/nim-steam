@@ -56,3 +56,6 @@ proc getProfileInventory*(steamID64: int64, gameID: int,
   for jsonAsset in jsonDescriptions:
     result.add(to(jsonAsset, InventoryAsset))
   return result
+
+# Parse profile XML
+# https://steamcommunity.com/profiles/76561198859045421/?xml=1

@@ -4,7 +4,7 @@
 ## 
 
 
-import httpclient, tables,  strutils, json, options, times, uri
+import httpclient, tables,  strutils, json, options, times, uri, protobuf
 
 include client/rsaPassword
 
@@ -129,8 +129,9 @@ proc getRSAKey(client: var SteamClient,  username: string): RSAKey =
   var mainHeaders = newHttpHeaders()
   mainHeaders.add("Content-Type", "application/x-www-form-urlencoded")
   mainHeaders.add("Cookie", client.cookies)
-  let response = client.httpclient.request(url, HttpGET, headers = mainHeaders)
+  let response = client.httpclient.request(url, HttpGet, headers = mainHeaders)
   client.parseSetCookies(response.headers)
+  echo response.body
   let jsonObject = parseJson(response.body)
   result = to(jsonObject, RSAKey)
   return result
@@ -170,10 +171,15 @@ proc auth*(client: var SteamClient,  username: string, password: string, secret 
   try:
     client.clearSession()
     client.createSession()
+    echo "step1"    
     var data_RSA = client.getRSAKey(username) 
+    echo "step2" 
     var encrypted_password = encryptPassword(data_RSA.publickey_mod, data_RSA.publickey_exp, password)
+    echo "step3"
     loginResponse = client.doLogin(username, encrypted_password, data_RSA.timestamp, secret, captcha_text)
+    echo "step4" 
   except: 
+    echo "ERROR steamClient.auth"
     return false
   finally: 
     echo client.cookies()
@@ -188,6 +194,8 @@ proc commentProfile*(client: var SteamClient, message: string, user_id: int64): 
     mainHeaders.add("Content-Type", "application/x-www-form-urlencoded")
     mainHeaders.add("Cookie", client.cookies)
     let response = client.httpclient.request(url, HttpPOST, body = body, mainHeaders)
+    echo response.body
+    echo "responce status ", response.status
     let jsonObject = parseJson(response.body)
     result = jsonObject["success"].getBool()
   except: 
