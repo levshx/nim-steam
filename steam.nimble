@@ -22,7 +22,7 @@ task test, "Run the Nimble tester!":
     exec "nim c -r tester unittests::*"
 
 task docs, "Generate docs!":
-  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html steam.nim"
+  exec "nim doc --project --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html src/steam.nim"
   exec "nim rst2html --index:on --git.url:https://github.com/levshx/nim-steam --git.commit:devel --outdir:docs/html docs/*.rst"
   exec "nim buildIndex --project -o:docs/html/index.html docs"
 
