@@ -4,7 +4,7 @@ version       = "0.0.2"
 author        = "levshx"
 description   = "Steam library"
 license       = "MIT License"
-path          = "src"
+srcDir        = "src"
 # Dependencies
 
 requires "nim >= 1.6.0"
