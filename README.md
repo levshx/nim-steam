@@ -9,6 +9,8 @@
 
 # <img src="http://forum.nim-lang.org/images/logo.png" style="height: 25px;"> nim-steam 
 
+### The client part no longer works, everything needs to be rebuilt for the Protobuf websocket
+
 It can be installed through nimble with:
 
 ```
